@@ -3,4 +3,6 @@ rendszerfrissítést, majd telepíti a Docker-t és a docker-compose-t a beáll�
 A szkript biztonsági mentést készít a hálózati konfigurációról, színes visszajelzést ad, és
 minden lépést automatikusan végrehajt root jogosultság mellett.
 
-![](.github/debian12.png)
+<p align="center">
+  <img src=".github/debian12.png" alt="Debian 12 logo" width="200">
+</p>
