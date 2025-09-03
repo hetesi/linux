@@ -1,19 +1,13 @@
 #!/bin/bash
 set -e
 
-INTERFACE=$(ip -o -4 route show to default | awk '{print $5}')
-IPADDR="192.168.1.100"
-NETMASK="255.255.255.0"
-GATEWAY="192.168.1.1"
-DNS="192.168.1.1"
-
 RED="\033[0;31m"
 GREEN="\033[0;32m"
 YELLOW="\033[1;33m"
 BLUE="\033[0;34m"
 NC="\033[0m" 
 
-DockVer="v2.27.0"
+DockVer="v2.39.2"
 
 # Ellenőrizzük, hogy root vagy-e
 echo -e "${YELLOW}=== Debian konfiguráló szkript ===${NC}"
@@ -24,33 +18,6 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 echo -e "${GREEN} Root jogosultság ellenőrizve.${NC}"
-
-echo "Biztonsági mentés készül az interfaces fájlról..."
-cp /etc/network/interfaces /etc/network/interfaces.bak.$(date +%s)
-
-echo "Hálózat konfigurálása ($INTERFACE)..."
-
-cat <<EOF > /etc/network/interfaces
-# loopback interface
-auto lo
-iface lo inet loopback
-
-# statikus IP beállítása
-allow-hotplug $INTERFACE
-iface $INTERFACE inet static
-    address $IPADDR
-    netmask $NETMASK
-    gateway $GATEWAY
-    dns-nameservers $DNS
-EOF
-
-echo "nameserver $DNS" > /etc/resolv.conf
-
-echo "Hálózati szolgáltatás újraindítása..."
-systemctl restart networking
-
-echo -e "${YELLOW}KÉSZ – az új IP-cím: $IPADDR${NC}"
-systemctl restart networking
 
 # 1. Rendszer frissítése
 echo "Rendszer frissítése..."
