@@ -7,7 +7,7 @@ YELLOW="\033[1;33m"
 BLUE="\033[0;34m"
 NC="\033[0m" 
 
-DockVer="v2.39.2"
+DockVer="v5.0.1"
 
 # Ellenőrizzük, hogy root vagy-e
 echo -e "${YELLOW}=== Debian konfiguráló szkript ===${NC}"
